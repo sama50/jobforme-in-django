@@ -1,0 +1,28 @@
+
+<style>
+    .sidebar {
+  background-color: #34495e;
+  color: white;
+  width: 220px;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+}
+</style>
+<nav class="sidebar">
+    <ul>
+      <li><a href="{% url 'hrdash' %}"><i class="fas fa-user"></i> Profile</a></li> 
+      <li><a href="{% url 'postjob' %}"><i class="fas fa-plus-circle"></i> New Job Post</a></li>
+    </ul>
+    <button class="logout-button"><a href="{% url 'logout' %}">Logout</a></button>
+  </nav>

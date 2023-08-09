@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Poster Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      margin-left: 4rem;
+      width: 50rem;
+
+    }
+
+
+
+    .job-listings {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: calc(100% - 220px);
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ... Existing job card styles ... */
+
+    .logout-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #e74c3c;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+      background-color: #c0392b;
+    }
+
+    .job-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .job-card {
+      /* flex: 1; */
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+    }
+
+    .job-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .apply-count {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #777777;
+    }
+
+    .apply-count i {
+      margin-right: 5px;
+    }
+
+    .job-card button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .job-card button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    {% include "hr/navbar.html" %}
+
+    <div class="content">
+      <h2>Welcome to Your Dashboard</h2>
+
+
+
+      <div class="job-cards">
+
+        {% for job in jobposts %}
+        <div class="job-card">
+          <h3>{{job.title}}</h3>
+          <p>Posted on: {{job.lastDateToApply}}</p>
+          <div class="apply-count">
+            <i class="fas fa-users"></i>
+            <span>{{job.applyCount}} Candidates Applied</span>
+          </div>
+          <button class="details-button"><a href="{% url 'candidatedetails' job.id %}" style="text-decoration: none; color: inherit;">See Details</a></button>
+        </div>
+        {% endfor %}
+
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>

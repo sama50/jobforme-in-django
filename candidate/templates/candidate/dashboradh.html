@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Listings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 4rem;
+  width: 50rem; 
+
+}
+
+.sidebar {
+  background-color: #34495e;
+  color: white;
+  width: 220px;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+}
+
+.job-listings {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(100% - 220px);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ... Existing job card styles ... */
+
+.logout-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+
+.job-listings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.job-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.active-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.job-location {
+  color: #777777;
+}
+
+.job-details p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.apply-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  margin-top: 40%;
+}
+
+.apply-button:hover {
+  background-color: #218838;
+}
+.sidebar a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+}
+
+.sidebar i {
+  margin-right: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% include 'candidate/navbar.html' %}
+    <div class="job-listings">
+      {% for job in jobpost %}
+        <div class="job-card">
+          <div class="active-tag" >Active</div>
+          <div class="job-header">
+            <h3 >{{job.title}}</h3>
+            <span class="job-location" >{{job.address}}</span>
+          </div>
+          <div class="job-details">
+            <p>Company: {{job.compnayName}}</p>
+            <p>Salary: ${{job.salaryLow}} - ${{job.salary.High}}</p>
+            <p>Last Date: {{job.lastDateToApply}}</p>
+          </div>
+          <button class="apply-button"><a href="{% url 'apply' job.id %}" style="text-decoration: none;
+            color: inherit;">Apply Now</a></button>
+        </div>
+      {% endfor %}
+        <!-- Add more job cards here -->
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Job Post</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 4rem;
+            width: 50rem;
+
+        }
+
+        .sidebar {
+            background-color: #34495e;
+            color: white;
+            width: 220px;
+            padding: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+        }
+
+        .job-listings {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: calc(100% - 220px);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ... Existing job card styles ... */
+
+        .logout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .upload-form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .upload-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .upload-form form {
+            display: grid;
+            grid-gap: 20px;
+        }
+
+        .upload-form label {
+            font-weight: bold;
+        }
+
+        .upload-form input[type="text"],
+        .upload-form input[type="number"],
+        .upload-form input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .upload-form .salary-range {
+            display: flex;
+            align-items: center;
+        }
+
+        .upload-form .salary-range span {
+            margin: 0 10px;
+        }
+
+        .upload-form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .upload-form button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+         {% include 'hr/navbar.html' %}
+        <div class="content">
+            {% if msg %}
+            <p style="color: green;">{{msg}}</p>
+            {% endif %}
+            <h2>Upload New Job Post</h2>
+            <div class="upload-form">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <label for="job-title">Job Title:</label>
+                    <input type="text" id="job-title" name="job-title" required>
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+
+                    <label for="company-name">Company Name:</label>
+                    <input type="text" id="company-name" name="company-name" required>
+
+                    <label for="salary-low">Salary Range (Low to High):</label>
+                    <div class="salary-range">
+                        <input type="number" id="salary-low" name="salary-low" required>
+                        <span>-</span>
+                        <input type="number" id="salary-high" name="salary-high" required>
+                    </div>
+
+                    <label for="last-date">Last Date for Apply:</label>
+                    <input type="date" id="last-date" name="last-date" required>
+
+                    <button type="submit" class="upload-button">Upload Job</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Poster Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 4rem;
+            width: 50rem;
+
+        }
+
+        .sidebar {
+            background-color: #34495e;
+            color: white;
+            width: 220px;
+            padding: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+        }
+
+        .job-listings {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: calc(100% - 220px);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ... Existing job card styles ... */
+
+        .logout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .candidates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .candidates-table th,
+        .candidates-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .candidates-table th {
+            background-color: #f2f2f2;
+        }
+
+        .resume-download {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .resume-download:hover {
+            color: #2980b9;
+        }
+
+        .candidates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .candidates-table th,
+        .candidates-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .candidates-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .candidates-table td {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .resume-download {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .resume-download:hover {
+            color: #2980b9;
+        }
+
+        /* Additional styling for a more modern table appearance */
+
+        .candidates-table {
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .candidates-table th,
+        .candidates-table td {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .candidates-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .candidates-table td a {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            color: #3498db;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .candidates-table td a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .accept-button,
+        .reject-button {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .accept-button {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .reject-button {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .accept-button:hover,
+        .reject-button:hover {
+            opacity: 0.8;
+        }
+
+        /* Styling for "See Your Profile" button */
+
+        .profile-button {
+            display: inline-block;
+            padding: 5px 10px;
+            width: 10rem;
+            background-color: #2980b9;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% include 'hr/navbar.html' %}
+        <div class="content">
+            <h2>Candidates Details</h2>
+            {% if jobapplys %}
+            <table class="candidates-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Passing Year</th>
+                        <th>Years of Experience</th>
+                        <th>Resume</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for candi in jobapplys %}
+                    <tr>
+                        <td>{{candi.user.username}}</td>
+                        <td>{{candi.user.email}}</td>
+                        <td>{{candi.passingYear}}</td>
+                        <td>{{candi.yearOfExperience}}</td>
+                        <td><a href="{{candi.resume.url}}" class="resume-download">Download Resume</a></td>
+                        <td>Pending</td>
+                        <td>
+                            <form action="{% url 'acceptapplication' %}" method="post">
+                                {% csrf_token %}
+                                <input type="number" name="candidateid" value="{{candi.id}}" hidden>
+                                <input type="number" name="jobpostid" value="{{jobpost.id}}" hidden>
+                                <button class="accept-button" type="submit">Accept</button>
+                            </form>
+                            <hr>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button class="reject-button">Reject</button>
+                            </form>
+                            
+                        </td>
+                        <td><a href="#" class="profile-button">See Your Profile</a></td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Add more rows for other candidates -->
+                </tbody>
+            </table>
+            {% else %}
+                <h2>No Application received</h2>
+            {% endif %}
+             
+                <h2>Selected Candidates Details</h2>
+                {% if jobapplys %}
+                <table class="candidates-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Passing Year</th>
+                            <th>Years of Experience</th>
+                            <th>Resume</th>
+                            <th>Status</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for candi in selectedCandidate %}
+                        <tr>
+                            <td>{{candi.candidate.user.username}}</td>
+                            <td>{{candi.candidate.user.email}}</td>
+                            <td>{{candi.candidate.passingYear}}</td>
+                            <td>{{candi.candidate.yearOfExperience}}</td>
+                            <td><a href="{{candi.candidate.resume.url}}" class="resume-download">Download Resume</a></td>
+                            <td>{{candi.candidate.status}}</td>
+                             
+                             
+                        </tr>
+                        {% endfor %}
+                        <!-- Add more rows for other candidates -->
+                    </tbody>
+                </table>
+                {% else %}
+                    <h2>No Application received</h2>
+                {% endif %}
+                
+             
+        </div>
+
+        
+
+    </div>
+</body>
+
+</html>
